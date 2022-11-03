@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('price');
+            $table->enum('status' , ['pending','accept','reject','payed','sent','complete'])
+                ->default('pending');
+            $table->string('hash')->unique();
             $table->timestamps();
         });
     }
