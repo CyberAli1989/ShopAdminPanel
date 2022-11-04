@@ -15,5 +15,11 @@
         "sass": "^1.32.11",
         "vite": "^3.0.0",
         "vue": "^3.2.37"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.2.0",
+        "hc-offcanvas-nav": "^6.1.5",
+        "jquery": "^3.6.1",
+        "vazirmatn": "^33.0.3"
     }
 }

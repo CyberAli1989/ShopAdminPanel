@@ -6,12 +6,28 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import 'vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import hcOffcanvasNav from 'hc-offcanvas-nav';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
  * to use in your application's views. An example is included for you.
  */
+setTimeout(function () {
+    var Nav = new hcOffcanvasNav('#main-nav', {
+        customToggle: '.toggle',
+        navTitle: 'Routes',
+        position: 'right',
+        levelTitles: true,
+        levelOpen:'expand',
+        levelTitleAsBack: true,
+        rtl:true,
+        disableBody:false,
+    });
+}, 100);
+
 
 const app = createApp({});
 
