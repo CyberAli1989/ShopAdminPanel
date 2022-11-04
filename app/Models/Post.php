@@ -16,4 +16,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
