@@ -5,10 +5,11 @@
  */
 
 import './bootstrap';
-import { createApp } from 'vue';
+import {createApp} from 'vue';
 import 'vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import hcOffcanvasNav from 'hc-offcanvas-nav';
+import ExampleComponent from './components/ExampleComponent.vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -21,17 +22,27 @@ setTimeout(function () {
         navTitle: 'Routes',
         position: 'right',
         levelTitles: true,
-        levelOpen:'expand',
+        levelOpen: 'expand',
         levelTitleAsBack: true,
-        rtl:true,
-        disableBody:false,
+        rtl: true,
+        disableBody: false,
     });
 }, 100);
 
+window.addEventListener('load' , function (e) {
+    jQuery('.delete-confirm').click(function (e) {
+        if (!confirm('Are you sure to remove?')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    jQuery('.checkall').click(function (e) {
+        $("input[type='checkbox']").prop("checked", $(this).is(':checked'));
+    });
+})
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
 
 /**

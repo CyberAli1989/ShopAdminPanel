@@ -29,6 +29,7 @@ Route::prefix('admin')->name('admin.')->group(
                     function () {
                         Route::get('/', [\App\Http\Controllers\admin\UserController::class, 'index'])->name('index');
                         Route::get('/delete/{user}', [\App\Http\Controllers\admin\UserController::class, 'destroy'])->name('delete');
+                        Route::post('/bulk', [\App\Http\Controllers\admin\UserController::class, 'bulk'])->name('bulk');
                         Route::get('/create', [\App\Http\Controllers\admin\UserController::class, 'create'])->name('create');
                         Route::post('/store', [\App\Http\Controllers\admin\UserController::class, 'store'])->name('store');
                         Route::get('/edit/{user}', [\App\Http\Controllers\admin\UserController::class, 'edit'])->name('edit');
@@ -43,6 +44,8 @@ Route::prefix('admin')->name('admin.')->group(
                         Route::post('/store', [\App\Http\Controllers\admin\ProductController::class, 'store'])->name('store');
                         Route::get('/edit/{product}', [\App\Http\Controllers\admin\ProductController::class, 'edit'])->name('edit');
                         Route::post('/update/{product}', [\App\Http\Controllers\admin\ProductController::class, 'update'])->name('update');
+                        Route::post('/bulk', [\App\Http\Controllers\admin\ProductController::class, 'bulk'])->name('bulk');
+
                     }
                 );
                 Route::prefix('invoices.')->name('invoice.')->group(
