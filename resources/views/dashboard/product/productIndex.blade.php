@@ -9,8 +9,9 @@
                 <tr>
                     <th><input type="checkbox" class="checkall"></th>
                     <th><a class="list-group-item" href="?"><span class="fa fa-chevron-down"></span> #</a></th>
-                    <th><a class="list-group-item" href="?sort=mobile"><span
-                                class="fa fa-chevron-downn"></span> {{__("image")}}</a></th>
+                    <th>
+                        {{__("image")}}
+                    </th>
 
                     <th><a class="list-group-item" href="?sort=name"><span
                                 class="fa fa-chevron-down"></span> {{__("name")}}</th>
@@ -44,13 +45,15 @@
                             {{$item->id}}
                         </td>
                         <td>
-                            imge here
+                            <a target="_blank" href="{{$item->imgO()}}">
+                                <img class="img-thumbnail" src="{{$item->imgS()}}" alt="{{$item->slug}}">
+                            </a>
                         </td>
                         <td>
                             {{$item->name}}
                         </td>
                         <td>
-                            {{$item->price}}
+                            <price val="{{$item->price}}"></price>
                         </td>
                         <td>
                             {{$item->user->name}}
@@ -71,7 +74,8 @@
                             <a class="btn btn-danger btn-sm my-2 delete-confirm"
                                href="{{route('admin.product.delete', $item->slug)}}"><span
                                     class="fa fa-trash"></span></a>
-                            <a class="btn btn-warning btn-sm my-2" href="{{route('admin.product.edit', $item->slug)}}"><span
+                            <a class="btn btn-warning btn-sm my-2"
+                               href="{{route('admin.product.edit', $item->slug)}}"><span
                                     class="fa fa-edit"></span></a>
                         </td>
                     </tr>

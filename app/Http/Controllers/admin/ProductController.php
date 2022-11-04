@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductSaveRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -14,6 +15,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function updateOrSave(Product $product, ProductSaveRequest $request)
+    {
+        $product->name = $request->input('name');
+        $product->slug = $request->input('slug');
+        $product->category_id = $request->input('category_id');
+        $product->description = $request->input('description');
+        $product->quantity = $request->input('quantity');
+        $product->price = $request->input('price');
+        $product->sku = $request->input('sku');
+        $product->user_id = auth()->id();
+        $product->save();
+
+        if ($request->hasFile('image')) {
+            $product->media()->delete();
+            $product->addMedia($request->file('image'))->toMediaCollection();
+        }
+    }
+
     public function index(Request $request)
     {
         $input = $request->input('sort', 'id');
@@ -30,7 +49,7 @@ class ProductController extends Controller
     public function create()
     {
         $category = Category::all();
-        return view('dashboard.product.productForm' , compact('category'));
+        return view('dashboard.product.productForm', compact('category'));
     }
 
     /**
@@ -39,9 +58,11 @@ class ProductController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductSaveRequest $request)
     {
-        //
+        $product = new Product();
+        $this->updateOrSave($product , $request);
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -64,7 +85,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $category = Category::all();
-        return view('dashboard.product.productForm' ,compact('category' , 'product'));
+        return view('dashboard.product.productForm', compact('category', 'product'));
     }
 
     /**
@@ -74,9 +95,11 @@ class ProductController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Product $product, ProductSaveRequest $request)
     {
         //
+        $this->updateOrSave($product , $request);
+        return redirect()->route('admin.product.index');
     }
 
     /**

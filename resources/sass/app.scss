@@ -12,3 +12,26 @@ body{
     direction: rtl;
     font-family: "Vazirmatn FD";
 }
+
+.main-img{
+    span{
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        transition: 300ms;
+    }
+    &:hover{
+        span{
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            background-color: rgba(0,0,0,.6);
+            color: red;
+            font-size: 10em;
+            cursor: pointer;
+        }
+    }
+}

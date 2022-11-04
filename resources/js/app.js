@@ -10,6 +10,8 @@ import 'vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import hcOffcanvasNav from 'hc-offcanvas-nav';
 import ExampleComponent from './components/ExampleComponent.vue';
+import ComfyComponent from './components/ComfyComponent.vue';
+import ShowPriceComponent from './components/ShowPriceComponent.vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -39,11 +41,16 @@ window.addEventListener('load' , function (e) {
     jQuery('.checkall').click(function (e) {
         $("input[type='checkbox']").prop("checked", $(this).is(':checked'));
     });
+    jQuery('.main-img span').click(function () {
+      $('.chose-img').click();
+    })
 })
 
 const app = createApp({});
 
 app.component('example-component', ExampleComponent);
+app.component('comfy', ComfyComponent);
+app.component('price', ShowPriceComponent);
 
 /**
  * The following block of code may be used to automatically register your

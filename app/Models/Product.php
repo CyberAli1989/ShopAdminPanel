@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * App\Models\Product
@@ -12,10 +16,73 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $description
+ * @property int $category_id
+ * @property int $view
+ * @property int $sell_count
+ * @property int $quantity
+ * @property int $price
+ * @property string|null $sku
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category $category
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\ProductFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSellCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSku($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereView($value)
  */
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('product-s')
+            ->width(256)
+            ->height(256)
+            ->crop(Manipulations::CROP_CENTER, 256, 256)
+            ->optimize()
+            ->sharpen(10);
+
+        $this->addMediaConversion('product')
+            ->optimize()
+            ->sharpen(10);
+
+    }
+
+
+    public function imgS()
+    {
+        if ($this->getMedia()->count() > 0) {
+            return $this->getMedia()->first()->getUrl('product-s');
+        } else {
+            return "no image";
+        }
+    }
+
+    public function imgO()
+    {
+        if ($this->getMedia()->count() > 0) {
+            return $this->getMedia()->first()->getUrl('product');
+        } else {
+            return "no image";
+        }
+    }
 
     function comments()
     {
