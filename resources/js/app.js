@@ -32,6 +32,11 @@ setTimeout(function () {
 }, 100);
 
 window.addEventListener('load' , function (e) {
+
+    setTimeout(function () {
+        document.querySelector('.preloader').remove();
+    }, 1000);
+
     jQuery('.delete-confirm').click(function (e) {
         if (!confirm('Are you sure to remove?')) {
             e.preventDefault();

@@ -15,6 +15,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function updateOrSave(Product $product, ProductSaveRequest $request)
     {
         $product->name = $request->input('name');
@@ -61,7 +67,7 @@ class ProductController extends Controller
     public function store(ProductSaveRequest $request)
     {
         $product = new Product();
-        $this->updateOrSave($product , $request);
+        $this->updateOrSave($product, $request);
         return redirect()->route('admin.product.index');
     }
 
@@ -98,7 +104,7 @@ class ProductController extends Controller
     public function update(Product $product, ProductSaveRequest $request)
     {
         //
-        $this->updateOrSave($product , $request);
+        $this->updateOrSave($product, $request);
         return redirect()->route('admin.product.index');
     }
 

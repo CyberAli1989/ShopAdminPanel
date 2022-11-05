@@ -3,13 +3,14 @@
 @section('content')
 
 
-@if
-    <div class="container">
-        <div class="main-img position-relative">
-            <img class="img-fluid" src="{{$product->imgO()}}" alt="">
-            <span class="fa fa-close position-absolute top-0"></span>
+    @if( isset($product))
+        <div class="container">
+            <div class="main-img position-relative">
+                <img class="img-fluid" src="{{$product->imgO()}}" alt="">
+                <span class="fa fa-close position-absolute top-0"></span>
+            </div>
         </div>
-    </div>
+    @endif
     <form class="container" enctype="multipart/form-data" method="post"
           @if(isset($product))
           action="{{route('admin.product.update' , $product->slug)}}"
@@ -52,7 +53,7 @@
                     </label>
                     {{--                    <input name="price" type="text" class="form-control @error('price') is-invalid @enderror"--}}
                     {{--                           placeholder="{{__('Price')}}" value="{{old('price',$product->price??null)}}"/>--}}
-                    <comfy myname="price" place="{{__('Price')}}" val="{{old('price',$product->price??null)}}" ></comfy>
+                    <comfy myname="price" place="{{__('Price')}}" val="{{old('price',$product->price??null)}}"></comfy>
                 </div>
             </div>
             <div class="col-md-6 mt-3">
@@ -105,6 +106,7 @@
 @endsection
 <script>
     import Comfy from "../../../js/components/ComfyComponent";
+
     export default {
         components: {Comfy}
     }

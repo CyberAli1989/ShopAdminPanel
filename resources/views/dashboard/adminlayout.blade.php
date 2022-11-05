@@ -20,6 +20,10 @@
     <main class="py-4">
         @yield('content')
     </main>
+
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
 </div>
 </body>
 </html>
