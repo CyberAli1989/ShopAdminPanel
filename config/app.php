@@ -125,6 +125,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'currency' => env('currency', 'تومان'),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

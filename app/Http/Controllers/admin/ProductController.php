@@ -43,8 +43,15 @@ class ProductController extends Controller
     {
         $input = $request->input('sort', 'id');
         $sort = Product::orderBy($input, 'desc');
+        $q = '';
+        if ($request->has('q')) {
+            $q = $request->q;
+            $sort->where('name', 'LIKE', '%' . $q . '%')
+                ->orWhere('description', 'LIKE', '%' . $q . '%');
+        }
         $products = $sort->paginate(15);
-        return view('dashboard.product.productIndex', compact('products'));
+
+        return view('dashboard.product.productIndex', compact('products' , 'q'));
     }
 
     /**
@@ -122,12 +129,19 @@ class ProductController extends Controller
 
     public function bulk(Request $request)
     {
-        if (empty($request->bulk)) {
-            return '404';
-        } else {
-            Product::whereIn('slug', $request->bulk)->delete();
-            return redirect()->back();
 
+        switch ($request->status) {
+            case 'del':
+                Product::whereIn('slug', $request->bulk)->delete();
+                break;
+            case 'out':
+                Product::whereIn('slug', $request->bulk)->update(['quantity' => -1]);
+                break;
+            case 'runOut':
+                Product::whereIn('slug', $request->bulk)->update(['quantity' => 0]);
         }
+        return redirect()->back();
     }
+
+
 }

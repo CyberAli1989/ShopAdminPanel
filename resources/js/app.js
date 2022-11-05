@@ -8,11 +8,13 @@ import './bootstrap';
 import {createApp} from 'vue';
 import 'vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'hc-offcanvas-nav/dist/hc-offcanvas-nav.carbon.css'
 import hcOffcanvasNav from 'hc-offcanvas-nav';
 import ExampleComponent from './components/ExampleComponent.vue';
 import ComfyComponent from './components/ComfyComponent.vue';
 import ShowPriceComponent from './components/ShowPriceComponent.vue';
-
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -56,7 +58,7 @@ const app = createApp({});
 app.component('example-component', ExampleComponent);
 app.component('comfy', ComfyComponent);
 app.component('price', ShowPriceComponent);
-
+app.component('v-select', vSelect);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

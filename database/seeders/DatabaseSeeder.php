@@ -27,5 +27,9 @@ class DatabaseSeeder extends Seeder
              'username' => 'CyberAli',
              'email' => 'admin@info.com',
          ]);
+
+         $this->call([
+            ProductSeeder::class
+         ]);
     }
 }

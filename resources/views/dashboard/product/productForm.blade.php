@@ -38,13 +38,17 @@
                     <label for="category_id">
                         {{__('category')}}
                     </label>
+{{--                    <v-select label="title"  :value="id" :options="{{$category}}">--}}
+
+{{--                    </v-select>--}}
                     <select name="category_id" id="category_id"
                             class="form-control @error('category_id') is-invalid @enderror">
                         @foreach($category as $cat )
                             <option value="{{ $cat->id }}"
                                     @if (old('category_id',$item->category_id??null) == $cat->title ) selected @endif > {{$cat->title}} </option>
                         @endforeach
-                    </select></div>
+                    </select>
+                </div>
             </div>
             <div class="col-md-6 mt-3">
                 <div class="form-group">
